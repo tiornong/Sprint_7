@@ -24,15 +24,10 @@ public class LogInCourierEndpointTest {
     // Для хранения данных последнего использованного курьера
     Courier courier;
 
-    @Before
-    public void setUp(){
-        RestAssured.baseURI = Constant.TEST_URI;
-    }
-
     @After
     public void tearDown(){
         Credentials credentials = new Credentials(courier.getLogin(), courier.getPassword());
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.login(credentials);
         client.deleteCourier(response.extract().jsonPath().getString("id"));
     }
@@ -42,7 +37,7 @@ public class LogInCourierEndpointTest {
     public void correctLoginTest() {
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), courier.getPassword());
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         client.createCourier(courier);
         ValidatableResponse response = client.login(credentials);
@@ -57,7 +52,7 @@ public class LogInCourierEndpointTest {
     public void  mandatoryOfLoginBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("", courier.getPassword());
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         client.createCourier(courier);
         ValidatableResponse response = client.login(credentials);
@@ -72,7 +67,7 @@ public class LogInCourierEndpointTest {
     public void  mandatoryOfPasswordBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), "");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         client.createCourier(courier);
         ValidatableResponse response = client.login(credentials);
@@ -87,7 +82,7 @@ public class LogInCourierEndpointTest {
     public void nonExistentLoginTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("timofeevich", "qwerty");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         // Создаём и сразу удаляем курьера, что бы быть уверенными в том, что он не существует на момент теста
         client.createCourier(courier);
@@ -104,7 +99,7 @@ public class LogInCourierEndpointTest {
     public void correctOnlyPasswordTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), "ytrewq");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         client.createCourier(courier);
         ValidatableResponse response = client.login(credentials);
@@ -119,7 +114,7 @@ public class LogInCourierEndpointTest {
     public void correctOnlyLoginTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("hciveefomit", courier.getPassword());
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         client.createCourier(courier);
         ValidatableResponse response = client.login(credentials);

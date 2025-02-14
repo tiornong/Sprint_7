@@ -16,12 +16,6 @@ import static io.restassured.RestAssured.given;
 
 public class ScooterServiceClient {
 
-    private final String baseURI;
-
-    public ScooterServiceClient(String baseURI) {
-        this.baseURI = baseURI;
-    }
-
     @Step("Клиент – создание курьера")
     public ValidatableResponse createCourier(Courier courier) {
         return given()

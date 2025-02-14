@@ -70,8 +70,6 @@ public class CreateOrderEndpointTest {
 
     @Before
     public void setUp(){
-        RestAssured.baseURI = Constant.TEST_URI;
-
         //для отображения в отчёте параметризованных данных
         String testName = String.format("Создание заказа: цвет %s", Arrays.toString(color));
         Allure.getLifecycle().updateTestCase(testResult ->
@@ -81,7 +79,7 @@ public class CreateOrderEndpointTest {
 
     @After
     public void tearDown(){
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         client.cancelOrder(track);
     }
 
@@ -89,7 +87,7 @@ public class CreateOrderEndpointTest {
     @DisplayName("Создание заказа с разными цветами")
     public void correctOrderCreateTest(){
         Order order = new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         ValidatableResponse response = client.createOrder(order);
         response.assertThat().statusCode(201).body("$", hasKey("track"));

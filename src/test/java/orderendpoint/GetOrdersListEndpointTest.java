@@ -16,15 +16,10 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class GetOrdersListEndpointTest {
 
-    @Before
-    public void setUp(){
-        RestAssured.baseURI = Constant.TEST_URI;
-    }
-
     @Test
     @DisplayName("Проверяем получение и корректность структуры списка заказов")
     public void getCorrectOrdersListTest() {
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.getOrders();
 
         response.assertThat().statusCode(200);

@@ -23,15 +23,10 @@ public class CreateCourierEndpointTest {
     // Для хранения данных последнего использованного курьера
     Courier courier;
 
-    @Before
-    public void setUp(){
-        RestAssured.baseURI = Constant.TEST_URI;
-    }
-
     @After
     public void tearDown(){
         Credentials credentials = new Credentials(courier.getLogin(), courier.getPassword());
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.login(credentials);
         client.deleteCourier(response.extract().jsonPath().getString("id"));
     }
@@ -40,7 +35,7 @@ public class CreateCourierEndpointTest {
     @DisplayName("Корректное создание курьера")
     public void  createCourierTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         ValidatableResponse response = client.createCourier(courier);
 
@@ -55,7 +50,7 @@ public class CreateCourierEndpointTest {
     public void unavailabilityOfCreatingTwoIdenticalCourierTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
 
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         // создаём первичного курьера
         client.createCourier(this.courier);
@@ -71,7 +66,7 @@ public class CreateCourierEndpointTest {
     @DisplayName("Cоздание курьера с отсутствующим логином")
     public void mandatoryOfLoginBodyParameterTest(){
         this.courier = new Courier("", "qwerty", "Timofey");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.createCourier(this.courier);
 
         response.assertThat()
@@ -83,7 +78,7 @@ public class CreateCourierEndpointTest {
     @DisplayName("Создание курьера с отсутствующим паролем")
     public void mandatoryOfPasswordBodyParameterTest(){
         this.courier = new Courier("timofeevich", "", "Timofey");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.createCourier(this.courier);
 
         response.assertThat()
@@ -95,7 +90,7 @@ public class CreateCourierEndpointTest {
     @DisplayName("Cоздание курьера с отсутствующим именем")
     public void optionalityOfFirstNameBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "");
-        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        ScooterServiceClient client = new ScooterServiceClient();
 
         ValidatableResponse response = client.createCourier(courier);
 
