@@ -99,4 +99,34 @@ public class LogInCourierEndpointTest {
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
+    @Test
+    @DisplayName("Попытка залогиниться с неправильным паролем")
+    public void correctOnlyPasswordTest(){
+        this.courier = new Courier("timofeevich", "qwerty", "Timofey");
+        Credentials credentials = new Credentials(courier.getLogin(), "ytrewq");
+        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+
+        client.createCourier(courier);
+        ValidatableResponse response = client.login(credentials);
+
+        response.assertThat()
+                .statusCode(404)
+                .body("message", equalTo("Учетная запись не найдена"));
+    }
+
+    @Test
+    @DisplayName("Попытка залогиниться с неправильным логином")
+    public void correctOnlyLoginTest(){
+        this.courier = new Courier("timofeevich", "qwerty", "Timofey");
+        Credentials credentials = new Credentials("hciveefomit", courier.getPassword());
+        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+
+        client.createCourier(courier);
+        ValidatableResponse response = client.login(credentials);
+
+        response.assertThat()
+                .statusCode(404)
+                .body("message", equalTo("Учетная запись не найдена"));
+    }
+
 }
