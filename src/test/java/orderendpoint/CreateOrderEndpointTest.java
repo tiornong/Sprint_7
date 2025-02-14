@@ -6,6 +6,7 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,9 @@ public class CreateOrderEndpointTest {
     private final String deliveryDate;
     private final String comment;
     private final String[] color;
+
+    // Переменная для хранения трек-номера последнего созданного заказа
+    private String track;
 
     public CreateOrderEndpointTest(String firstName, String lastName, String address, int metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
         this.firstName = firstName;
@@ -75,13 +79,22 @@ public class CreateOrderEndpointTest {
         );
     }
 
+    @After
+    public void tearDown(){
+        ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+        client.cancelOrder(track);
+    }
+
     @Test
     @DisplayName("Создание заказа с разными цветами")
     public void correctOrderCreateTest(){
         Order order = new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
         ScooterServiceClient client = new ScooterServiceClient(Constant.TEST_URI);
+
         ValidatableResponse response = client.createOrder(order);
         response.assertThat().statusCode(201).body("$", hasKey("track"));
+
+        this.track = response.extract().body().jsonPath().getString("track");
     }
 
 }

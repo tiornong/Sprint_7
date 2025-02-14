@@ -74,4 +74,14 @@ public class ScooterServiceClient {
                 .then();
     }
 
+    @Step("Клиент - удаление курьера")
+    public ValidatableResponse cancelOrder(String id) {
+        return given()
+                .filter(new AllureRestAssured())
+                .baseUri(baseURI)
+                .queryParam("track", id)
+                .put("/api/v1/orders/cancel")
+                .then();
+    }
+
 }
