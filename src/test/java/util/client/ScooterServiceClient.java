@@ -9,7 +9,7 @@ import io.restassured.response.ValidatableResponse;
 import util.model.Courier;
 import util.model.Credentials;
 import util.model.Order;
-
+import static util.Constant.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -26,10 +26,9 @@ public class ScooterServiceClient {
     public ValidatableResponse createCourier(Courier courier) {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
                 .header("Content-Type", "application/json")
                 .body(courier)
-                .post("/api/v1/courier")
+                .post(COURIER_CREATE_TEST_URL)
                 .then();
     }
 
@@ -37,10 +36,9 @@ public class ScooterServiceClient {
     public ValidatableResponse login(Credentials credentials) {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
                 .header("Content-Type", "application/json")
                 .body(credentials)
-                .post("/api/v1/courier/login")
+                .post(COURIER_LOGIN_TEST_URL)
                 .then();
     }
 
@@ -48,10 +46,9 @@ public class ScooterServiceClient {
     public ValidatableResponse getOrders() {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
                 .header("Content-Type", "application/json")
                 .queryParam("limit", "2")
-                .get("/api/v1/orders")
+                .get(ORDERS_LIST_GET_TEST_URL)
                 .then();
     }
 
@@ -59,8 +56,7 @@ public class ScooterServiceClient {
     public ValidatableResponse deleteCourier(String id) {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
-                .delete(String.format("/api/v1/courier/%s", id))
+                .delete(COURIER_DELETE_TEST_URL + id)
                 .then();
     }
 
@@ -68,19 +64,17 @@ public class ScooterServiceClient {
     public ValidatableResponse createOrder(Order order) {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
                 .body(order)
-                .post("/api/v1/orders")
+                .post(ORDER_CREATE_TEST_URL)
                 .then();
     }
 
-    @Step("Клиент - удаление курьера")
+    @Step("Клиент - удаление заказа")
     public ValidatableResponse cancelOrder(String id) {
         return given()
                 .filter(new AllureRestAssured())
-                .baseUri(baseURI)
                 .queryParam("track", id)
-                .put("/api/v1/orders/cancel")
+                .put(ORDER_CANCEL_TEST_URL)
                 .then();
     }
 
