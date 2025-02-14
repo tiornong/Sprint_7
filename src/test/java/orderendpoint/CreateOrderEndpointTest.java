@@ -19,6 +19,7 @@ import util.model.Order;
 
 import java.util.Arrays;
 
+import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.hasKey;
 
 
@@ -90,7 +91,7 @@ public class CreateOrderEndpointTest {
         ScooterServiceClient client = new ScooterServiceClient();
 
         ValidatableResponse response = client.createOrder(order);
-        response.assertThat().statusCode(201).body("$", hasKey("track"));
+        response.assertThat().statusCode(SC_CREATED).body("$", hasKey("track"));
 
         this.track = response.extract().body().jsonPath().getString("track");
     }

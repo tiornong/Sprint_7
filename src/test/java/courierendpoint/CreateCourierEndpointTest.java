@@ -2,19 +2,17 @@ package courierendpoint;
 
 
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import util.Constant;
 import util.client.ScooterServiceClient;
 import util.model.Courier;
 import util.model.Credentials;
 
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 
@@ -40,7 +38,7 @@ public class CreateCourierEndpointTest {
         ValidatableResponse response = client.createCourier(courier);
 
         response.assertThat()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", equalTo(true));
 
     }
@@ -58,7 +56,7 @@ public class CreateCourierEndpointTest {
         ValidatableResponse response = client.createCourier(this.courier);
 
         response.assertThat()
-                .statusCode(409)
+                .statusCode(SC_CONFLICT)
                 .body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
     }
     
@@ -70,7 +68,7 @@ public class CreateCourierEndpointTest {
         ValidatableResponse response = client.createCourier(this.courier);
 
         response.assertThat()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
@@ -82,7 +80,7 @@ public class CreateCourierEndpointTest {
         ValidatableResponse response = client.createCourier(this.courier);
 
         response.assertThat()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
@@ -95,7 +93,7 @@ public class CreateCourierEndpointTest {
         ValidatableResponse response = client.createCourier(courier);
 
         response.assertThat()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", equalTo(true));
     }
 

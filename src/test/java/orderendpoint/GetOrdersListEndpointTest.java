@@ -12,6 +12,7 @@ import util.client.ScooterServiceClient;
 
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.apache.http.HttpStatus.SC_OK;
 
 
 public class GetOrdersListEndpointTest {
@@ -22,7 +23,7 @@ public class GetOrdersListEndpointTest {
         ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.getOrders();
 
-        response.assertThat().statusCode(200);
+        response.assertThat().statusCode(SC_OK);
         response.assertThat().body(matchesJsonSchemaInClasspath("ordersList.json"));
     }
 }

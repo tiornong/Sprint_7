@@ -15,6 +15,7 @@ import util.model.Courier;
 import util.model.Credentials;
 
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -43,7 +44,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("$", hasKey("id"));
     }
 
@@ -58,7 +59,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -73,7 +74,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -90,7 +91,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -105,7 +106,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -120,7 +121,7 @@ public class LogInCourierEndpointTest {
         ValidatableResponse response = client.login(credentials);
 
         response.assertThat()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
