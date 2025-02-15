@@ -72,6 +72,11 @@
             <version>1.18.20</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>1.6.0</version> <!-- Версия, совместимая с Java 8+ -->
+        </dependency>
     </dependencies>
 
     <build>
