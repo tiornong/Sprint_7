@@ -2,18 +2,16 @@ package orderendpoint;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import util.Constant;
 import util.client.ScooterServiceClient;
 
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.apache.http.HttpStatus.SC_OK;
+
 
 @DisplayName("Тесты получение списка заказов")
 public class GetOrdersListEndpointTest {

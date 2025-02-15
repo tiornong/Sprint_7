@@ -4,7 +4,6 @@ package orderendpoint;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.After;
@@ -13,15 +12,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import util.Constant;
 import util.client.ScooterServiceClient;
 import util.model.Order;
 
-
 import java.util.Arrays;
+
 
 import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.hasKey;
+
 
 @DisplayName("Тесты создания заказа")
 @RunWith(Parameterized.class)
