@@ -23,7 +23,7 @@ import java.util.Arrays;
 import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.hasKey;
 
-
+@DisplayName("Тесты создания заказа")
 @RunWith(Parameterized.class)
 public class CreateOrderEndpointTest {
 

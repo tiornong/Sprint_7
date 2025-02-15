@@ -15,7 +15,7 @@ import util.client.ScooterServiceClient;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.apache.http.HttpStatus.SC_OK;
 
-
+@DisplayName("Тесты получение списка заказов")
 public class GetOrdersListEndpointTest {
 
     @Test

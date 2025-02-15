@@ -20,7 +20,7 @@ import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-
+@DisplayName("Тесты логина курьера")
 public class LogInCourierEndpointTest {
 
     // Для хранения данных последнего использованного курьера

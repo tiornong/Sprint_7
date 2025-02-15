@@ -16,7 +16,7 @@ import util.model.Credentials;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-
+@DisplayName("Тесты создания курьера")
 public class CreateCourierEndpointTest {
 
     // Для хранения данных последнего использованного курьера
