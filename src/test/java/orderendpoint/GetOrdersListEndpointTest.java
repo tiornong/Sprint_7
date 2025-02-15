@@ -1,5 +1,6 @@
 package orderendpoint;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
@@ -18,7 +19,8 @@ import static org.apache.http.HttpStatus.SC_OK;
 public class GetOrdersListEndpointTest {
 
     @Test
-    @DisplayName("Проверяем получение и корректность структуры списка заказов")
+    @DisplayName("Получение списка заказов")
+    @Description("Проверяем получение списка заказов и корректность его структуры")
     public void getCorrectOrdersListTest() {
         ScooterServiceClient client = new ScooterServiceClient();
         ValidatableResponse response = client.getOrders();

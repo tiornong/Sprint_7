@@ -2,6 +2,7 @@ package orderendpoint;
 
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
@@ -85,8 +86,8 @@ public class CreateOrderEndpointTest {
     }
 
     @Test
-    @DisplayName("Создание заказа с разными цветами")
-    public void correctOrderCreateTest(){
+    @Description("Проверка создания заказа с разными цветами самокатов")
+    public void correctDifferentColourOrderCreateTest(){
         Order order = new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
         ScooterServiceClient client = new ScooterServiceClient();
 

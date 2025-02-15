@@ -1,6 +1,7 @@
 package courierendpoint;
 
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
@@ -34,7 +35,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Успешный логин курьера")
+    @DisplayName("Логин курьера")
+    @Description("Логин существующего курьера со всеми корректными параметрами")
     public void correctLoginTest() {
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), courier.getPassword());
@@ -49,7 +51,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Попытка залогиниться без логина")
+    @DisplayName("Отсутствие логина")
+    @Description("Попытка логина курьера при отсутствующем логине")
     public void  mandatoryOfLoginBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("", courier.getPassword());
@@ -64,7 +67,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Попытка залогиниться без пароля")
+    @DisplayName("Отсутствие пароля")
+    @Description("Попытка логина курьера при отсутствующем пароле")
     public void  mandatoryOfPasswordBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), "");
@@ -79,7 +83,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Попытка залогиниться в несуществующего курьера")
+    @DisplayName("Несуществующий курьер")
+    @Description("Попытка залогиниться в несуществующего курьера. Важно -- в ходе теста создаётся и сразу же удаляется курьер, это делается для гарантии отсутствия курьера на момент проведения теста")
     public void nonExistentLoginTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("timofeevich", "qwerty");
@@ -96,7 +101,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Попытка залогиниться с неправильным паролем")
+    @DisplayName("Неправильный пароль")
+    @Description("Попытка залогиниться с неправильным паролем")
     public void correctOnlyPasswordTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials(courier.getLogin(), "ytrewq");
@@ -111,7 +117,8 @@ public class LogInCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Попытка залогиниться с неправильным логином")
+    @DisplayName("Неправильный логин")
+    @Description("Попытка залогиниться с неправильным логином")
     public void correctOnlyLoginTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         Credentials credentials = new Credentials("hciveefomit", courier.getPassword());

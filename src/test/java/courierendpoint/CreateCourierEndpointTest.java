@@ -1,6 +1,7 @@
 package courierendpoint;
 
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 
@@ -30,7 +31,8 @@ public class CreateCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Корректное создание курьера")
+    @DisplayName("Создание курьера")
+    @Description("Создание курьера со всеми валидными параметрами")
     public void  createCourierTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
         ScooterServiceClient client = new ScooterServiceClient();
@@ -44,7 +46,8 @@ public class CreateCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Создание курьера с логином-дублем")
+    @DisplayName("Дублированный логин")
+    @Description("Попытка создать курьера с логином, который уже занят")
     public void unavailabilityOfCreatingTwoIdenticalCourierTest(){
         this.courier = new Courier("timofeevich", "qwerty", "Timofey");
 
@@ -61,7 +64,8 @@ public class CreateCourierEndpointTest {
     }
     
     @Test
-    @DisplayName("Cоздание курьера с отсутствующим логином")
+    @DisplayName("Отсутствующий логин")
+    @Description("Попытка создать курьера с отсутствующим логином в body")
     public void mandatoryOfLoginBodyParameterTest(){
         this.courier = new Courier("", "qwerty", "Timofey");
         ScooterServiceClient client = new ScooterServiceClient();
@@ -73,7 +77,8 @@ public class CreateCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Создание курьера с отсутствующим паролем")
+    @DisplayName("Отсутствующий пароль")
+    @Description("Попытка создать курьера с отсутствующим паролем в body")
     public void mandatoryOfPasswordBodyParameterTest(){
         this.courier = new Courier("timofeevich", "", "Timofey");
         ScooterServiceClient client = new ScooterServiceClient();
@@ -85,7 +90,8 @@ public class CreateCourierEndpointTest {
     }
 
     @Test
-    @DisplayName("Cоздание курьера с отсутствующим именем")
+    @DisplayName("Отсутствующее имя")
+    @Description("Попытка создать курьера с отсутствующим именем в body")
     public void optionalityOfFirstNameBodyParameterTest(){
         this.courier = new Courier("timofeevich", "qwerty", "");
         ScooterServiceClient client = new ScooterServiceClient();
